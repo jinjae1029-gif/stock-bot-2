@@ -385,8 +385,9 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         // Mode Toggle Handler
+        // Mode Toggle Handler
         if (toggleMode) {
-            toggleMode.addEventListener('change', (e) => {
+            const handleModeChange = (e) => {
                 const isTradingSheet = e.target.checked;
 
                 if (isTradingSheet) {
@@ -488,7 +489,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Hide Injection Buttons
                     if (document.getElementById('btnInjSeed')) document.getElementById('btnInjSeed').classList.add('hidden');
                     if (document.getElementById('btnInjCash')) document.getElementById('btnInjCash').classList.add('hidden');
-
                     // 3. Hide Order Sheet Button AND Content Area
                     btnOrderSheet.classList.add('hidden');
                     const osArea = document.getElementById('orderSheetArea');
@@ -497,7 +497,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     // 4. RESET PARAMS TO DEFAULTS
                     resetParamsToHardcodedDefaults();
                 }
-            });
+            };
+
+            toggleMode.addEventListener('change', handleModeChange);
+
+            // Initialization Check: Ensure UI matches Checkbox state on Reload
+            if (toggleMode.checked) {
+                handleModeChange({ target: toggleMode });
+            }
         }
 
         // "Use" Button Handler (Legacy removed, using shared saveDefaults below)
