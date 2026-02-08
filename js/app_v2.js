@@ -74,7 +74,7 @@ window.saveToCloud = async () => {
     };
 
     try {
-        await setDoc(doc(db, "users", uid), data);
+        await setDoc(doc(db, "users", uid), data, { merge: true });
         console.log(`Saved to Firestore: users/${uid}`);
         // alert("클라우드 저장 완료 ☁️"); // Removed as per instruction to use button text
         if (btnUseDefaults) btnUseDefaults.innerHTML = "저장 완료! ✅";
